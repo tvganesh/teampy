@@ -233,7 +233,102 @@ def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="t
     # Write to file 
       df.to_csv(path)
    
-      
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 07 Jun 2019
+# Function: cleanTeamData
+# This function cleans the team data for Test, ODI and T20
+#
+###########################################################################################
 
-getTeamDataHomeAway(teamName="Bangladesh",save=True)
+def cleanTeamData(df,matchType):
+  #Remove rows with 'DNB
+  print(df.shape)
+  a=df.Score != 'DNB'
+  df1 = df[a]
+  print(df.shape)
+  
+  if (matchType =="Test"):
+    # Remove columns 0,8 & 12 for Tests. They have empty columns
+    cols=[0,8,12]
+    df2=df1.drop(df1.columns[cols],axis=1)
+  # Remove columns 8 & 12 for ODI and T20. They have empty columns
+  elif ((matchType == "ODI") or (matchType == "T20")):
+    cols=[0,7,11]
+    df2=df1.drop(df1.columns[cols],axis=1)
+  
+
+  # Fix the Opposition column, remove "^ v"
+  df2.Opposition=df2.Opposition.str.replace("v ","")
+  # Return cleaned dataframe
+  return(df2)
+
+      
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 07 Jun 2019
+# Function: teamWinLossStatusVsOpposition
+# This function returns a team's win/loss/draw/tie status against the opposition. The
+# matches could be played at home/away/neutral venues for Test, ODI and T20
+#
+###########################################################################################
+'''
+def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=c["all"],matchType="Test",plot=FALSE):
+  # Read CSV file
+  df = pd.read_csv(file)
+  #Clean data
+  df1 =cleanTeamData(df,matchType)
+
+  # Get the vector of countries in opposition and filter those rows
+  if("all" %in% opposition):
+    #Do not filter
+  else:
+    df1 <- df1 %>% filter(Opposition %in% opposition)
+  
+
+  #Check home/away/neutral from vector homeOrAway and filter rows
+  if("all" %in% homeOrAway ):
+    # Do not filter
+  else:
+    df1 <- df1 %>% filter(ha  %in% homeOrAway)
+  
+
+  # Select columns, group and count
+  df2 <- df1 %>% select(Opposition,ha,Result)  %>%
+    group_by(Opposition,Result) %>% summarize(count=n())
+
+  # If plot is TRUE
+  if(plot == TRUE):
+    # Collapse vector of countries in opposition
+    oppn = paste(opposition,collapse='-')
+    # Collapse vectors of homeOrAway vector
+    ground = paste(homeOrAway,collapse='-')
+
+    atitle <- paste("Win/Loss status of",teamName, "against opposition in", matchType,"(s)")
+
+    asub <- paste("Against",oppn," teams at", ground, "grounds")
+
+    # Plot for opposition and home/away for a team in Tes, ODI and T20
+    ggplot(data=df2, aes(x=Opposition, y=count,fill=Result)) +
+      geom_bar(stat="identity",position="stack")  +
+      geom_text(aes(label=count), vjust=-0.5,position="stack") +
+      labs(x="Win/Loss Status",
+           y="Count",
+           title=atitle,
+           subtitle=asub,
+           caption = "Data source-Courtesy:ESPN Cricinfo", side=1, line=4, adj=1.0, cex=0.8, col="blue") +
+      theme(axis.text.x=element_text(angle=90,hjust=1))+
+      ggtitle(atitle)
+
+  }
+  else{
+    # Return dataframe
+    df2
+  }
+}
+'''
+#getTeamDataHomeAway(teamName="Bangladesh",save=True)
+#getTeamDataHomeAway(teamName="India",matchType="Test",file="indiaTest.csv",save=True)
 #df1= getTeamData(dir=".",file="team001.csv",matchType="Test",homeOrAway=[1],result=[1,2,3,4],teamName="Bangladesh")
+df=pd.read_csv("indiaTest.csv")
+df1=cleanTeamData(df,matchType="Test")
