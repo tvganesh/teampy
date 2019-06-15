@@ -1,4 +1,5 @@
 from teamData import *
+import seaborn as sns 
 file="indiaTest.csv"
 matchType="Test"
 # Read CSV file
@@ -6,7 +7,7 @@ df = pd.read_csv(file)
 # Clean data
 df1 = cleanTeamData(df, matchType)
 
-homeOrAway=["home"]
+homeOrAway=["all"]
 
 opposition="all"
 # Get the vector of countries in opposition and filter those rows
@@ -27,4 +28,14 @@ else:
 
 
 # Select columns, group and count
-df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').reset_index()
+#df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').reset_index()
+#sns.barplot(x="Result", y="count", data=df2, palette=sns.color_palette("GnBu", 10))
+#df2=df1.groupby(['Opposition','ha',])['Result'].agg('count').to_frame('count').unstack(fill_value=0)
+
+#df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('c')
+df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').reset_index()
+status=sns.barplot(x="Opposition", y="count", hue='Result',data=df2)
+#status.set_xticklabels(labels,rotation=30)
+status.set_xticklabels(status.get_xticklabels(), rotation=90)
+#df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').unstack(fill_value=0)
+#df2.plot(kind='bar',stacked=False,legend=True,fontsize=8)
