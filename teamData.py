@@ -173,6 +173,8 @@ def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
        if save:
             # Write to file 
             teamDF.to_csv(path)
+   
+  return(teamDF)
 
 
 ##########################################################################################
@@ -187,27 +189,51 @@ def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
 ###########################################################################################
 
 def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="team001HA.csv",save=True):
+
   print("Working...")
   # Check if match type is Test. The result is won, lost, draw or tie
   if(matchType == "Test"):
-    df1= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType,homeOrAway=[1],result=[1,2,3,4])
-    df2= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[2],result=[1,2,3,4])
-    df3= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[3],result=[1,2,3,4])
+    df1= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType,homeOrAway=[1],result=[1,2,3,4],teamView=teamView)
+    df2= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[2],result=[1,2,3,4],teamView=teamView)
+    df3= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[3],result=[1,2,3,4],teamView=teamView)
   else: #ODI & T20. The result is won, lost, tie or no result
 
-    df1= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType,homeOrAway=[1],result=[1,2,3,5])
-    df2= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[2],result=[1,2,3,5])
-    df3= getTeamData(teamView,teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[3],result=[1,2,3,5])
+    df1= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType,homeOrAway=[1],result=[1,2,3,5],teamView=teamView)
+    df2= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[2],result=[1,2,3,5],teamView=teamView)
+    df3= getTeamData(teamName=teamName,dir=".",file="team001.csv",matchType=matchType, homeOrAway=[3],result=[1,2,3,5],teamView=teamView)
   
-  # Create the column values home, away or neutral
-  df1.ha="home"
-  df2.ha="away"
-  df3.ha = "neutral"
-
-  # Stack the rows to create dataframe
+  print("hello")
   print(df1.shape)
   print(df2.shape)
   print(df3.shape)
+  # Create the column values home, away or neutral
+  df1['ha']="home"
+  df2['ha']="away"
+  df3['ha'] = "neutral"
+  print("After")
+  print(df1.shape)
+  print(df2.shape)
+  print(df3.shape)
+  
+  df = pd.DataFrame()
+  
+  # Stack the rows to create dataframe
+  if(df1.shape[0] != 0):
+      df = pd.concat([df,df1])
+  if(df2.shape[0] != 0):
+      df = pd.concat([df,df2])  
+  if(df3.shape[0] != 0):
+      df = pd.concat([df,df3])
 
-#getTeamData(teamName="Bangladesh",save=True)
-df1= getTeamData(dir=".",file="team001.csv",matchType=matchType,homeOrAway=[1],result=[1,2,3,4],teamName="Bangladesh")
+  print("final",df.shape)   
+  # Create path
+  path = os.path.join(dir, file)
+       
+  if save:
+    # Write to file 
+      df.to_csv(path)
+   
+      
+
+getTeamDataHomeAway(teamName="Bangladesh",save=True)
+#df1= getTeamData(dir=".",file="team001.csv",matchType="Test",homeOrAway=[1],result=[1,2,3,4],teamName="Bangladesh")
