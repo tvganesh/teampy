@@ -37,5 +37,6 @@ df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('
 status=sns.barplot(x="Opposition", y="count", hue='Result',data=df2)
 #status.set_xticklabels(labels,rotation=30)
 status.set_xticklabels(status.get_xticklabels(), rotation=90)
-#df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').unstack(fill_value=0)
-#df2.plot(kind='bar',stacked=False,legend=True,fontsize=8)
+
+df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('count').unstack(fill_value=0)
+df2.plot(kind='bar',stacked=False,legend=True,fontsize=8)
