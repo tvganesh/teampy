@@ -324,7 +324,67 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
     # Return dataframe
     return(df2)
 
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 07 Jun 2019
+# Function: teamWinLossStatusAtGrounds
+# This function returns a team's win/loss/draw/tie status against the opposition at venues.
+# The matches could be played at home/away/neutral venues for Test, ODI and T20s. The output is either a
+# dataframe or a plot
+#
+###########################################################################################
 
+def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False):
+  # Read CSV file
+  df = pd.read_csv(file)
+  # Clean data
+  df1 = cleanTeamData(df, matchType)
+
+ 
+  # Get the list of countries in opposition and filter those rows
+  if ("all" in  opposition):
+    # Do not filter
+    pass
+  else:
+    df1 = df1[df1['Opposition'].isin(opposition)]
+  
+  print(df1.columns)
+  # Check home/away/neutral from list homeOrAway and filter rows
+  if ("all"in homeOrAway ):
+     # Do not filter
+     pass 
+  else:
+    df1 = df1[df1['ha'].isin(homeOrAway)]
+  
+
+  # Select columns, group and count
+  df2=df1.groupby(['Ground','ha','Result']).Opposition.\
+         agg('count').to_frame('count')
+  print(df2.columns)
+
+  # If plot is True
+  if(plot == True):
+    # Collapse list of countries in opposition
+    separator='-'
+    oppn = separator.join(opposition)
+    # Collapse vectors of homeOrAway vector
+    ground = separator.join(homeOrAway)
+
+    atitle = "Win/Loss status of" + teamName +  "against opposition in" +  matchType +"(s)"
+
+    asub ="Against" + oppn + " teams at" +  ground +  "grounds"
+
+    df3 = df2.reset_index()
+    # Plot for opposition and home/away for a team in Tes, ODI and T20
+    status=sns.barplot(x="Ground", y="count", hue='Result',data=df3)
+
+    status.set_xticklabels(status.get_xticklabels(), rotation=90)
+  else:
+    # Return dataframe
+    return(df2)
+    
+    
+    
 #getTeamDataHomeAway(teamName="Bangladesh",save=True)
 #getTeamDataHomeAway(teamName="India",matchType="Test",file="indiaTest.csv",save=True)
 #df1= getTeamData(dir=".",file="team001.csv",matchType="Test",homeOrAway=[1],result=[1,2,3,4],teamName="Bangladesh")
@@ -332,4 +392,5 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
 #df1=cleanTeamData(df,matchType="Test")
 
 #df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
-teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+#teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
