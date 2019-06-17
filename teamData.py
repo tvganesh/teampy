@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import seaborn as sns
+import matplotlib.pyplot as plt
 ##########################################################################################
 # Designed and developed by Tinniam V Ganesh
 # Date : 07 Jun 2019
@@ -453,7 +454,7 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
   
   df6 = pd.concat([df2,df3,df4,df5])
   print(df6.shape)
-  df6['Start Date'] = pd.to_datetime(df6['Start Date'])
+  df6['date'] = pd.to_datetime(df6['Start Date'])
   separator='-'
   oppn = separator.join(opposition)
   # Collapse vectors of homeOrAway vector
@@ -461,8 +462,14 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
     
   atitle = "Timeline of Win/Loss status of " + teamName+ " in " + matchType+ "(s)"
   asub = "Against " + oppn + " teams at " +  ground +  " grounds"
-  df7 = df6[['Start Date','Result']]
-  plot(df7['Start Date'],df7['Result'])
+  
+  # Sort by Start date
+  df7 = df6[['date','Result']].sort_values(by='date')
+  print(df7.head())
+  # Filter between start and end dates
+  m= ((df7.date >=  startDate) & (df7.date <= endDate))
+  df8 = df7[m]
+  plt.plot(df7['date'],df7['Result'])
     
 #getTeamDataHomeAway(teamName="Bangladesh",save=True)
 #getTeamDataHomeAway(teamName="India",matchType="Test",file="indiaTest.csv",save=True)
