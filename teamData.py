@@ -437,13 +437,13 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
     a= df1.Result == "draw"
     df4 = df1[a]
     if(df4.shape[0] != 0): # No draw
-      df4.result=-0.5
+      df4.result=0
   elif ((matchType == "ODI" ) or (matchType == "T20")):
     # FIlter 'no result' and set to 0
     a= df1.Result == "n/r"
     df4 = df1[a]
     if(df4.shape[0] != 0):
-      df4.result=-0
+      df4.result=-0.5
   
 
   # Filter lost and set to -1
@@ -469,7 +469,15 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
   # Filter between start and end dates
   m= ((df7.date >=  startDate) & (df7.date <= endDate))
   df8 = df7[m]
-  plt.plot(df7['date'],df7['Result'])
+  
+  if (matchType == "Test"):
+       plt.plot(df8['date'],df8['Result'])
+       plt.axhline(y=1,color='r')
+       plt.axhline(y=0.5,color='b')
+       plt.axhline(y=0,color='y')
+       plt.axhline(y=-1,color='y')
+  elif ((matchType == "ODI") or (matchType == "T20")):
+       plt.plot(df8['date'],df8['Result'])
     
 #getTeamDataHomeAway(teamName="Bangladesh",save=True)
 #getTeamDataHomeAway(teamName="India",matchType="Test",file="indiaTest.csv",save=True)
