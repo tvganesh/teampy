@@ -245,10 +245,9 @@ def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="t
 
 def cleanTeamData(df,matchType):
   #Remove rows with 'DNB
-  print(df.shape)
+
   a=df.Score != 'DNB'
   df1 = df[a]
-  print(df.shape)
   
   if (matchType =="Test"):
     # Remove columns 0,8 & 12 for Tests. They have empty columns
@@ -279,8 +278,10 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
 
   # Read CSV file
   df = pd.read_csv(file)
+  print(df.columns)
   # Clean data
   df1 = cleanTeamData(df, matchType)
+  print(df1.columns)
 
  
   # Get the list of countries in opposition and filter those rows
@@ -312,15 +313,20 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
     # Collapse vectors of homeOrAway vector
     ground = separator.join(homeOrAway)
 
-    atitle = "Win/Loss status of" + teamName +  "against opposition in" +  matchType +"(s)"
+    atitle = "Win/Loss status of " + teamName +  " against opposition in " +  matchType +"(s)"
 
-    asub ="Against" + oppn + " teams at" +  ground +  "grounds"
+    asub ="Against " + oppn + " teams at " +  ground +  " grounds"
 
     df3 = df2.reset_index()
     # Plot for opposition and home/away for a team in Tes, ODI and T20
     status=sns.barplot(x="Opposition", y="count", hue='Result',data=df3)
 
     status.set_xticklabels(status.get_xticklabels(), rotation=90)
+    
+    plt.xlabel('Opposition')
+    plt.ylabel('Win/Loss count')
+    plt.suptitle(atitle)
+    plt.title(asub)
   else:
     # Return dataframe
     return(df2)
@@ -373,13 +379,16 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
 
     atitle = "Win/Loss status of " + teamName +  " against opposition in " +  matchType +"(s)"
 
-    asub ="Against" + oppn + " teams at" +  ground +  "grounds"
+    asub ="Against " + oppn + " teams at " +  ground +  " grounds"
 
     df3 = df2.reset_index()
     # Plot for opposition and home/away for a team in Tes, ODI and T20
     status=sns.barplot(x="Ground", y="count", hue='Result',data=df3)
     status.set_xticklabels(status.get_xticklabels(), rotation=90)
-    plt.title(atitle)
+    plt.xlabel('Ground')
+    plt.ylabel('Win/Loss count')
+    plt.suptitle(atitle)
+    plt.title(asub)
   else:
     # Return dataframe
     return(df2)
@@ -501,4 +510,5 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
 #getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
   
-plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
+#plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
+teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
