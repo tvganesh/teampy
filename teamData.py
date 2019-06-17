@@ -370,20 +370,99 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
     # Collapse vectors of homeOrAway vector
     ground = separator.join(homeOrAway)
 
-    atitle = "Win/Loss status of" + teamName +  "against opposition in" +  matchType +"(s)"
+    atitle = "Win/Loss status of " + teamName +  " against opposition in " +  matchType +"(s)"
 
     asub ="Against" + oppn + " teams at" +  ground +  "grounds"
 
     df3 = df2.reset_index()
     # Plot for opposition and home/away for a team in Tes, ODI and T20
     status=sns.barplot(x="Ground", y="count", hue='Result',data=df3)
-
     status.set_xticklabels(status.get_xticklabels(), rotation=90)
+    plt.title(atitle)
   else:
     # Return dataframe
     return(df2)
     
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 07 Jun 2019
+# Function: plotTimelineofWinsLosses
+# This function plot the timelines of win/lost/draw/tie against opposition at
+# venues for Test, ODI and T20s
+#
+###########################################################################################
+
+def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"],
+                                     startDate="2001-01-01",endDate="2019-01-01",matchType="Test"):
     
+  # Read CSV file
+  df = pd.read_csv(file)
+  # Clean data
+  df1 = cleanTeamData(df, matchType)
+  
+    # Get the list of countries in opposition and filter those rows
+  if ("all" in  opposition):
+    # Do not filter
+    pass
+  else:
+    df1 = df1[df1['Opposition'].isin(opposition)]
+  
+  print(df1.columns)
+  # Check home/away/neutral from list homeOrAway and filter rows
+  if ("all"in homeOrAway ):
+     # Do not filter
+     pass 
+  else:
+    df1 = df1[df1['ha'].isin(homeOrAway)]
+    
+
+
+  # FIlter won and set to 1
+  a= df1.Result == "won"
+  df2 = df1[a]
+  if(df2.shape[0] != 0):
+    df2.result=1
+
+  #Filter tie and set to 0.5
+  a= df1.Result == "tie"
+  df3=df1[a]
+  # No tie
+  if (df3.shape[0] != 0):
+    df3.result=0.5
+
+  # Test has w
+  if(matchType == "Test"):
+    # FIlter draw and set to -0.5
+    a= df1.Result == "draw"
+    df4 = df1[a]
+    if(df4.shape[0] != 0): # No draw
+      df4.result=-0.5
+  elif ((matchType == "ODI" ) or (matchType == "T20")):
+    # FIlter 'no result' and set to 0
+    a= df1.Result == "n/r"
+    df4 = df1[a]
+    if(df4.shape[0] != 0):
+      df4.result=-0
+  
+
+  # Filter lost and set to -1
+  a= df1.Result == "lost"
+  df5=df1[a]
+  if(df5.shape[0] != 0):
+    df5.result=-1
+  
+  df6 = pd.concat([df2,df3,df4,df5])
+  print(df6.shape)
+  df6['Start Date'] = pd.to_datetime(df6['Start Date'])
+  separator='-'
+  oppn = separator.join(opposition)
+  # Collapse vectors of homeOrAway vector
+  ground = separator.join(homeOrAway)
+    
+  atitle = "Timeline of Win/Loss status of " + teamName+ " in " + matchType+ "(s)"
+  asub = "Against " + oppn + " teams at " +  ground +  " grounds"
+  df7 = df6[['Start Date','Result']]
+  plot(df7['Start Date'],df7['Result'])
     
 #getTeamDataHomeAway(teamName="Bangladesh",save=True)
 #getTeamDataHomeAway(teamName="India",matchType="Test",file="indiaTest.csv",save=True)
@@ -393,4 +472,7 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
 
 #df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
 #teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
-teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
+#teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
+#getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
+  
+plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
