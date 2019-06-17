@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+matchType="Test"
 file="indiatest.csv"
 # Read CSV file
 df = pd.read_csv(file)
@@ -7,7 +10,7 @@ df1 = cleanTeamData(df, matchType)
 opposition=["all"]
 homeOrAway=["all"]
 teamName="India"
-startDate="2001-01-01"
+startDate="2006-01-01"
 endDate="2019-01-01"
 # Get the list of countries in opposition and filter those rows
 if ("all" in opposition):
@@ -81,5 +84,19 @@ if (matchType == "Test"):
     plt.axhline(y=0.5, color='b')
     plt.axhline(y=0, color='y')
     plt.axhline(y=-1, color='y')
+    plt.xlabel('Date')
+    plt.ylabel('Win/Loss status')
+    plt.suptitle(atitle)
+    plt.title(asub)
+
+
 elif ((matchType == "ODI") or (matchType == "T20")):
     plt.plot(df8['date'], df8['Result'])
+    plt.axhline(y=1, color='r')
+    plt.axhline(y=0.5, color='b')
+    plt.axhline(y=-0.5, color='y')
+    plt.axhline(y=-1, color='y')
+    plt.xlabel('Date')
+    plt.ylabel('Win/Loss status')
+    plt.suptitle(atitle)
+    plt.title(asub)
