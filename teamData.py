@@ -234,6 +234,8 @@ def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="t
   if save:
     # Write to file 
       df.to_csv(path)
+
+  return(df)
    
 ##########################################################################################
 # Designed and developed by Tinniam V Ganesh
@@ -319,7 +321,7 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
 
     df3 = df2.reset_index()
     # Plot for opposition and home/away for a team in Tes, ODI and T20
-    status=sns.barplot(x="Opposition", y="count", hue='Result',data=df3)
+    status=sns.barplot(x="Opposition", y="count", hue='Result',data=df3, ci=None)
 
     status.set_xticklabels(status.get_xticklabels(), rotation=90)
     
@@ -383,7 +385,7 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
 
     df3 = df2.reset_index()
     # Plot for opposition and home/away for a team in Tes, ODI and T20
-    status=sns.barplot(x="Ground", y="count", hue='Result',data=df3)
+    status=sns.barplot(x="Ground".index, y="Count", hue='Result',data=df3, ci=None)
     status.set_xticklabels(status.get_xticklabels(), rotation=90)
     plt.xlabel('Ground')
     plt.ylabel('Win/Loss count')
@@ -511,4 +513,6 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
   
 #plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
-teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
+#teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
+indiaTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="indiaTest.csv",save=True,teamName="India")
+pakistanTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="pakistanTest.csv",save=True,teamName="Pakistan")
