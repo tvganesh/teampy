@@ -11,7 +11,52 @@ import matplotlib.pyplot as plt
 ###########################################################################################
 
 def getTeamNumber(teamName,matchType):
+'''
+Get the number of the Team
 
+Description
+
+This function returns the number of the Team for which analysis is to be done
+
+Usage
+
+getTeamNumber(teamName,matchType)
+Arguments
+
+teamName	
+The name of the team e.g Australia, India, Ghana etc
+matchType	
+The match type - Test, ODI or T20
+Value
+
+The numerical value of the team
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+teamNumber =getTeamNumber(teamName="India",matchType="Test")
+
+## End(Not run)
+
+'''
    # Match type is Test
    if(matchType == "Test"):
      # Test teams
@@ -57,6 +102,49 @@ def getTeamNumber(teamName,matchType):
 ###########################################################################################
 
 def getMatchType(matchType):
+'''
+Get the number of the match type viz.for Test, ODI and T20
+
+Description
+
+This function returns the number of the match type
+
+Usage
+
+getMatchType(matchType)
+Arguments
+
+matchType	
+The match type - Test, ODI or T20
+Value
+
+The numerical value of match type
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+match =getMatchType("Test")
+
+## End(Not run)
+'''
   match = {"Test":1,"ODI":2,"T20":3}
   return(match[matchType])
     
@@ -71,6 +159,66 @@ def getMatchType(matchType):
 ###########################################################################################
 def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
                         homeOrAway=[1,2,3],result=[1,2,3,4],teamView="bat",save=False) :
+'''
+Get the data for a team in a match type viz.for Test, ODI and T20
+
+Description
+
+This function returns team data as a CSV file and/or a dataframe for Test, ODI and T20
+
+Usage
+
+getTeamData(dir=".",file="team001.csv",matchType="Test",
+        homeOrAway=[1,2,3],result=[1,2,3,4],teamView="bat",save=False,teamName)
+Arguments
+
+dir	
+The directory where the team data CSV file be saved
+file	
+The name of the CSV file to save to
+matchType	
+The match type - Test, ODI , T20
+homeOrAway	
+Whether the data has to be got for home-1, away(overseas)-2 or neutral -3
+result	
+The result of the match for which data is to be saved - won-1, lost -2, tied-3, draw-4
+teamView	
+This can be 'bat' - batting team or 'bowl' - bowling team
+save	
+This can be set as True or False
+teamName	
+This is team name
+Value
+
+The required data frame
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+df=getTeamData(dir=".",file="australia.csv", matchType="Test",homeOrAway=[1,2,3],
+       result=[1,2,3, 4],teamView='bat',teamName="Australia")
+
+## End(Not run)
+
+'''
 
   print("Hoo",matchType)
   # Initialize url to ""
@@ -191,6 +339,61 @@ def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
 ###########################################################################################
 
 def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="team001HA.csv",save=True):
+'''
+Get the data for a team in a match type viz.for Test, ODI and T20 with the home/overseas/neutral
+
+Description
+
+This function returns team data as a CSV file and/or a dataframe for Test, ODI and T20 with an additional column showing home, away or neutral venue where the match was played
+
+Usage
+
+getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="team001HA.csv",
+     save=TRUE,teamName)
+Arguments
+
+dir	
+The directory where the team data CSV file be saved
+teamView	
+Team view can be either 'bat' (batting team) or 'bowl' (bowling team)
+matchType	
+The match type - Test, ODI , T20
+file	
+The name of te file to save to
+save	
+This can be TRUE or FALSE
+teamName	
+Team name is the team namely - Australia, India, England etc
+Value
+
+The required data frame
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+getTeamDataHomeAway(teamName="India",file="india.csv")
+
+## End(Not run)
+
+'''
 
   print("Working...")
   # Check if match type is Test. The result is won, lost, draw or tie
@@ -246,6 +449,52 @@ def getTeamDataHomeAway(teamName,dir=".",teamView="bat",matchType="Test",file="t
 ###########################################################################################
 
 def cleanTeamData(df,matchType):
+'''
+Clean the team data for Test, ODI and T20
+
+Description
+
+This function cleans the team data for Test, ODI and T20
+
+Usage
+
+cleanTeamData(df,matchType)
+Arguments
+
+df	
+Data frame
+matchType	
+Match type - Test, ODI, T20
+Value
+
+The cleaned Data frame
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+df =getTeamDataHomeAway(file="india.csv",teamName="India",matchType='Test')
+df1 =cleanTeamData(df,"Test")
+
+## End(Not run)
+
+'''
   #Remove rows with 'DNB
 
   a=df.Score != 'DNB'
@@ -277,7 +526,63 @@ def cleanTeamData(df,matchType):
 ###########################################################################################
 
 def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False):
+'''
+Compute the wins/losses/draw/tied etc for a Team in Test, ODI or T20 against opposition
 
+Description
+
+This function computes the won,lost,draw,tied or no result for a team against other teams in home/away or neutral venues and either returns a dataframe or plots it against opposition
+
+Usage
+
+teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["all"],
+      matchType="Test",plot=FALSE)
+Arguments
+
+file	
+The CSV file for which the plot is required
+teamName	
+The name of the team for which plot is required
+opposition	
+Opposition is a list namely ["all"] or ["Australia", "India", "England"]
+homeOrAway	
+This parameter is a list which is either ["all"] or a vector of venues ["home","away","neutral")]
+matchType	
+Match type - Test, ODI or T20
+plot	
+If plot=False then a data frame is returned, If plot=TRUE then a plot is generated
+Value
+
+None
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+df <- getTeamDataHomeAway(teamName="India",file="indiaOD.csv",matchType="ODI")
+teamWinLossStatusAtGrounds("india.csv",teamName="India",opposition=c("Australia","England","India"),
+                          homeOrAway=c("home","away"),plot=TRUE)
+
+## End(Not run)
+
+'''
   # Read CSV file
   df = pd.read_csv(file)
   print(df.columns)
@@ -344,7 +649,64 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
 ###########################################################################################
 
 def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False):
-  # Read CSV file
+'''
+Compute the wins/losses/draw/tied etc for a Team in Test, ODI or T20 at venues
+
+Description
+
+This function computes the won,lost,draw,tied or no result for a team against other teams in home/away or neutral venues and either returns a dataframe or plots it for grounds
+
+Usage
+
+teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all"],
+              matchType="Test",plot=FALSE)
+Arguments
+
+file	
+The CSV file for which the plot is required
+teamName	
+The name of the team for which plot is required
+opposition	
+Opposition is a vector namely ["all")] or ["Australia", "India", "England"]
+homeOrAway	
+This parameter is a vector which is either ["all")] or a vector of venues ["home","away","neutral"]
+matchType	
+Match type - Test, ODI or T20
+plot	
+If plot=FALSE then a data frame is returned, If plot=TRUE then a plot is generated
+Value
+
+None
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+df <- getTeamDataHomeAway(teamName="India",file="indiaOD.csv",matchType="ODI")
+teamWinLossStatusAtGrounds("india.csv",teamName="India",opposition=c("Australia","England","India"),
+                          homeOrAway=c("home","away"),plot=TRUE)
+
+## End(Not run)
+
+'''
+    # Read CSV file
   df = pd.read_csv(file)
   # Clean data
   df1 = cleanTeamData(df, matchType)
@@ -406,7 +768,65 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
 
 def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"],
                                      startDate="2001-01-01",endDate="2019-01-01",matchType="Test"):
-    
+'''
+Plot the time line of wins/losses/draw/tied etc for a Team in Test, ODI or T20
+
+Description
+
+This function returns plots a time line of won,lost,draw,tied or no result for a team against other teams in home/away or neutral venues
+
+Usage
+
+plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"],
+      startDate="2001-01-01",endDate="2019-01-01",matchType="Test")
+Arguments
+
+file	
+The CSV file for which the plot is required
+teamName	
+The name of the team for which plot is required
+opposition	
+Opposition is a vector namely ["all"] or ["Australia", "India", "England"]
+homeOrAway	
+This parameter is a vector which is either ["all"] or a vector of venues ["home","away","neutral"]
+startDate	
+The start date from which time line is required
+endDate	
+The end data for which the time line plot is required
+matchType	
+Match type - Test, ODI or T20
+Value
+
+None
+
+Note
+
+Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+Author(s)
+
+Tinniam V Ganesh
+
+References
+
+http://www.espncricinfo.com/ci/content/stats/index.html
+https://gigadom.in/
+See Also
+
+teamWinLossStatusVsOpposition teamWinLossStatusAtGrounds plotTimelineofWinsLosses
+
+Examples
+
+## Not run: 
+#Get the team data for India for Tests
+
+df <- getTeamDataHomeAway(teamName="India",file="indiaOD.csv",matchType="ODI")
+plotTimelineofWinsLosses("indiaOD.csv",teamName="India",
+        startDate="2015-01-01",endDate="2019-01-01", matchType="ODI")
+
+## End(Not run)
+
+'''    
     # Read CSV file
     df = pd.read_csv(file)
     # Clean data
