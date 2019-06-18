@@ -72,6 +72,7 @@ def getMatchType(matchType):
 def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
                         homeOrAway=[1,2,3],result=[1,2,3,4],teamView="bat",save=False) :
 
+  print("Hoo",matchType)
   # Initialize url to ""
   url =""
   suburl1 = "http://stats.espncricinfo.com/ci/engine/stats/index.html"
@@ -115,8 +116,7 @@ def getTeamData(teamName,dir=".",file="team001.csv",matchType="Test",
   if(matchType == "Test"): #Test
     if(4 in result):
       str4 ="result=4;"
-
-    else: #ODI & T20
+  else: #ODI & T20
       if(5 in result):
          str4 ="result=5;"
     
@@ -514,5 +514,8 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
   
 #plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
 #teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
-indiaTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="indiaTest.csv",save=True,teamName="India")
-pakistanTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="pakistanTest.csv",save=True,teamName="Pakistan")
+#indiaTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="indiaTest.csv",save=True,teamName="India")
+#pakistanTest =getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="pakistanTest.csv",save=True,teamName="Pakistan")
+#bangladeshODI =getTeamDataHomeAway(dir=".",teamView="bat",matchType="ODI",file="bangladeshODI.csv",save=True,teamName="Bangladesh")
+#srilankaODI =getTeamDataHomeAway(dir=".",teamView="bat",matchType="ODI",file="srilankaODI.csv",save=True,teamName="Sri Lanka")
+australiaT20 =getTeamDataHomeAway(dir=".",teamView="bat",matchType="T20",file="australiaT20.csv",save=True,teamName="Australia")
