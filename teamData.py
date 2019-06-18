@@ -622,6 +622,10 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
         plt.ylabel('Win/Loss count')
         plt.suptitle(atitle)
         plt.title(asub)
+        plt.text(5, 10,'Data source-Courtesy:http://cricsheet.org',
+         horizontalalignment='center',
+         verticalalignment='center',
+         )
     else:
         # Return dataframe
         return (df2)
@@ -721,6 +725,7 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
     
     # If plot is True
     if (plot == True):
+        print("Here111")
         # Collapse list of countries in opposition
         separator = '-'
         oppn = separator.join(opposition)
@@ -733,12 +738,16 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
     
         df3 = df2.reset_index()
         # Plot for opposition and home/away for a team in Tes, ODI and T20
-        status = sns.barplot(x="Ground".index, y="Count", hue='Result', data=df3, ci=None)
+        status = sns.barplot(x="Ground", y="count", hue='Result', data=df3, ci=None)
         status.set_xticklabels(status.get_xticklabels(), rotation=90)
         plt.xlabel('Ground')
         plt.ylabel('Win/Loss count')
         plt.suptitle(atitle)
         plt.title(asub)
+        plt.text(5, 3,'Data source-Courtesy:http://cricsheet.org',
+         horizontalalignment='center',
+         verticalalignment='center',
+         )
     else:
         # Return dataframe
         return (df2)
@@ -914,8 +923,8 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #df1=cleanTeamData(df,matchType="Test")
 
 #df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
-teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
-#teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
+#teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
 #getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
   
 #plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
