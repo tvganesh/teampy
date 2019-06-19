@@ -1,0 +1,19 @@
+---
+title: "Untitled"
+author: "Tinniam V Ganesh"
+date: "June 19, 2019"
+output: html_document
+---
+
+```{python}
+import cricpy.analytics as ca
+ca.teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+ca.teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["all"],matchType="Test",plot=True)
+```
+
+
+
+hsakhkkhdsa
+```{python}
+ca.teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["all"],matchType="Test",plot=True)
+```

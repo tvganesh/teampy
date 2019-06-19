@@ -596,9 +596,8 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
         df1 = df1[df1['ha'].isin(homeOrAway)]
     
     # Select columns, group and count
-    df2 = df1.groupby(['Opposition', 'ha', 'Result']).Opposition. \
-        agg('count').to_frame('count')
-    print(df2.columns)
+    df2=df1.groupby(['Opposition','Result','ha']).Opposition.agg('count').to_frame('count').unstack().fillna(0)['count']
+
     
     # If plot is True
     if (plot == True):
@@ -612,11 +611,8 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
     
         asub = "Against " + oppn + " teams at " + ground + " grounds"
     
-        df3 = df2.reset_index()
         # Plot for opposition and home/away for a team in Tes, ODI and T20
-        status = sns.barplot(x="Opposition", y="count", hue='Result', data=df3, ci=None)
-    
-        status.set_xticklabels(status.get_xticklabels(), rotation=90)
+        df2.plot(kind='bar',stacked=False,legend=True,fontsize=8,width=1)
     
         plt.xlabel('Opposition')
         plt.ylabel('Win/Loss count')
@@ -719,8 +715,7 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
         df1 = df1[df1['ha'].isin(homeOrAway)]
     
     # Select columns, group and count
-    df2 = df1.groupby(['Ground', 'ha', 'Result']).Opposition. \
-        agg('count').to_frame('count')
+    df2=df1.groupby(['Ground','Result','ha']).Opposition.agg('count').to_frame('count').unstack().fillna(0)['count']
     print(df2.columns)
     
     # If plot is True
@@ -736,15 +731,14 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
     
         asub = "Against " + oppn + " teams at " + ground + " grounds"
     
-        df3 = df2.reset_index()
         # Plot for opposition and home/away for a team in Tes, ODI and T20
-        status = sns.barplot(x="Ground", y="count", hue='Result', data=df3, ci=None)
-        status.set_xticklabels(status.get_xticklabels(), rotation=90)
+        df2.plot(kind='bar',stacked=False,legend=True,fontsize=8,width=1)
+
         plt.xlabel('Ground')
         plt.ylabel('Win/Loss count')
         plt.suptitle(atitle)
         plt.title(asub)
-        plt.text(5, 3,'Data source-Courtesy:http://cricsheet.org',
+        plt.text(5, 5,'Data source-Courtesy:http://cricsheet.org',
          horizontalalignment='center',
          verticalalignment='center',
          )
@@ -923,8 +917,8 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #df1=cleanTeamData(df,matchType="Test")
 
 #df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
-teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
-#teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
+#df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
+#teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["all"],matchType="Test",plot=True)
 #getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
   
 #plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
@@ -934,4 +928,5 @@ teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"
 #bangladeshODI =getTeamDataHomeAway(dir=".",teamView="bat",matchType="ODI",file="bangladeshODI.csv",save=True,teamName="Bangladesh")
 #srilankaODI =getTeamDataHomeAway(dir=".",teamView="bat",matchType="ODI",file="srilankaODI.csv",save=True,teamName="Sri Lanka")
 #australiaT20 =getTeamDataHomeAway(dir=".",teamView="bat",matchType="T20",file="australiaT20.csv",save=True,teamName="Australia")
-
+#getTeamDataHomeAway(teamName="South Africa",matchType="Test",file="southafricaTest.csv",save=True)
+getTeamDataHomeAway(teamName="West Indies",matchType="Test",file="westindiesTest.csv",save=True)

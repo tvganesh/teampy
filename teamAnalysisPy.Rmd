@@ -1,0 +1,120 @@
+---
+title: "Team analytics with cricketr"
+output:
+  html_document: default
+  word_document: default
+---
+
+*And she's got brains enough for two, which is the exact quantity the girl who marries you will need.*
+
+*"I'm not absolutely certain of the facts, but I rather fancy it's Shakespeare who says that it's always just when a fellow is feeling particularly braced with things in general that Fate sneaks up behind him with the bit of lead piping."*
+
+*"A melancholy-looking man, he had the appearance of one who has searched for the leak in life's gas-pipe with a lighted candle."*
+
+*"It isn't often that Aunt Dahlia lets her angry passions rise, but when she does, strong men climb trees and pull them up after them."*
+
+*"Some minds are like soup in a poor restaurant - better left unstirred."*
+
+                                          P.G. Wodehouse
+
+
+##2  Analysis of Test matches
+The functions below perform analysis of Test teams
+
+##2a. Wins vs Loss against opposition
+This function performs analysis of Test teams against other teams at home/away or neutral venue.
+**Note**:- The opposition can be a vector of opposition teams. Similarly homeOrAway can also be a vector of
+home/away/neutral venues.
+
+
+
+```{python opposition1,cache=TRUE,fig.width=10}
+import cricpy.analytics as ca
+# Get the performance of Indian test team against all teams at all venues as a dataframe
+df =ca.teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"], homeOrAway=["all"], matchType="Test", plot=False)
+print(df)
+
+# Plot the performance of Indian Test team  against all teams at all venues
+ca.teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+
+# Get the performance of Australia against India, England and New Zealand at all venues in Tests
+df =ca.teamWinLossStatusVsOpposition("southafricaTest.csv",teamName="South Africa",opposition=["India","England","New Zealand"],homeOrAway=["all"],matchType="Test",plot=False)
+print(df)
+
+#Plot the performance of Australia against England, India and New Zealand only at home (Australia) 
+ca.teamWinLossStatusVsOpposition("southafricaTest.csv",teamName="South Africa",opposition=["India","England","New Zealand"],homeOrAway=["home","away"],matchType="Test",plot=True)
+
+
+```
+
+
+### 2b Wins vs losses of Test teams against opposition at different venues
+```{python ground1,cache=TRUE}
+import cricpy.analytics as ca
+# Get the  performance of Pakistan against India, West Indies, South Africa at all venues in Tests and show performances at the venues
+df = ca.teamWinLossStatusAtGrounds("westindiesTest.csv",teamName="West Indies",opposition=["India","Sri Lanka","South Africa"],homeOrAway=["all"],matchType="Test",plot=False)
+print(df)
+
+# Plot the performance of New Zealand Test team against England, Sri Lanka and Bangladesh at all grounds playes 
+ca. teamWinLossStatusAtGrounds("newzealandTest.csv",teamName="New Zealand",opposition=["England","Sri Lanka","Bangladesh"],homeOrAway=["all"],matchType="Test",plot=True)
+```
+
+
+###2c. Plot the time line of wins vs losses of Test teams against opposition at different venues during an interval
+```{python timeline1,cache=TRUE }
+import cricpy.analytics as ca
+# Plot the time line of wins/losses of India against Australia, West Indies, South Africa in away/neutral venues
+#from 2000-01-01 to 2017-01-01
+ca.plotTimelineofWinsLosses("indiaTest.csv",teamName="India",opposition=["Australia","West Indies","South Africa"],
+                         homeOrAway=["away","neutral"], startDate="2000-01-01",endDate="2017-01-01")
+#Plot the time line of wins/losses of Indian Test team from 1970 onwards
+ca.plotTimelineofWinsLosses("indiaTest.csv",teamName="India",startDate="1970-01-01",endDate="2017-01-01")
+```
+
+
+
+## 3 ODI
+The functions below perform analysis of ODI teams listed above
+
+###3a. Wins vs Loss against opposition ODI teams
+This function performs analysis of ODI teams against other teams at home/away or neutral venue.
+**Note**:- The opposition can be a vector of opposition teams. Similarly homeOrAway can also be a vector of
+home/away/neutral venues.
+
+```{python odi1,cache=TRUE}
+import cricpy.analytics as ca
+# Get the performance of West Indies in ODIs against all other ODI teams at all venues and retirn as a dataframe
+df = ca.teamWinLossStatusVsOpposition("westindiesODI.csv",teamName="West Indies",opposition=["all"],homeOrAway=["all"],matchType="ODI",plot=False)
+print(df)
+
+# Plot the performance of West Indies in ODIs against Sri Lanka, India at all venues
+ca.teamWinLossStatusVsOpposition("westindiesODI.csv",teamName="West Indies",opposition=["Sri Lanka", "India"],homeOrAway=["all"],matchType="ODI",plot=True)
+
+#Plot the performance of Ireland in ODIs against Zimbabwe, Kenya, bermuda, UAE, Oman and Scotland at all venues
+ca.teamWinLossStatusVsOpposition("irelandODI.csv",teamName="Ireland",opposition=["Zimbabwe","Kenya","Bermuda","U.A.E.","Oman","Scotland"],homeOrAway=["all"],matchType="ODI",plot=True)
+
+```
+
+
+### 3b Wins vs losses of ODI teams against opposition at different venues
+```{python odi2,cache=TRUE}
+import cricpy.analytics as ca
+# Plot the performance of England ODI team against Bangladesh, West Indies and Australia at all venues
+ca.teamWinLossStatusAtGrounds("englandODI.csv",teamName="England",opposition=["West Indies"],homeOrAway=["all"],matchType="ODI",plot=True)
+
+#Plot the performance of India against South Africa, West Indies and Australia at 'home' venues
+ca.teamWinLossStatusAtGrounds("indiaODI.csv",teamName="India",opposition=["South Africa"],homeOrAway=["home"],matchType="ODI",plot=True)
+```
+
+```{python odi3, cache=TRUE}
+
+import cricpy.analytics as ca
+#Plot the time line of wins/losses of Bangladesh ODI team between 2015 and 2019 against all other teams and at
+# all venues
+ca.plotTimelineofWinsLosses("indiaODI.csv",teamName="India",opposition=["Sri Lanka","Bangladesh"],startDate="2016-01-01",endDate="2019-01-01",matchType="ODI")
+
+
+
+
+```
+
