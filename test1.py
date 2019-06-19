@@ -41,7 +41,7 @@ df2=df1.groupby(['Opposition','ha','Result']).Opposition.agg('count').to_frame('
 
 # Works
 df2=df1.groupby(['Opposition','Result','ha']).Opposition.agg('count').to_frame('count').unstack().fillna(0)['count']
-ax=df2.plot(kind='bar',stacked=False,legend=True,fontsize=8,width=1)
+ax=df2.plot(kind='bar',stacked=True,legend=True,fontsize=8,width=1,subplots=True)
 
 
 
