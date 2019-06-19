@@ -923,8 +923,8 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #df1=cleanTeamData(df,matchType="Test")
 
 #df=teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
-#teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
-teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
+teamWinLossStatusVsOpposition("indiaTest.csv",teamName="India",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+#teamWinLossStatusAtGrounds("indiaTest.csv",teamName="India",opposition=["Australia"],homeOrAway=["home"],matchType="Test",plot=True)
 #getTeamDataHomeAway(teamName="South Africa",matchType="T20",file="southafricaT20.csv",save=True)
   
 #plotTimelineofWinsLosses("indiaTest.csv",teamName="India")
