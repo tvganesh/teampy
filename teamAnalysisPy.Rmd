@@ -236,3 +236,23 @@ ca.plotTimelineofWinsLosses("bangladesh.csv",team="Bangladesh",startDate="2015-0
 
 ca.plotTimelineofWinsLosses("bangladesh.csv",team="Bangladesh",opposition=["Sri Lanka","India"))
 ```
+
+## Conclusion
+
+With the above additional functions cricpy can now analyze batsmen, bowlers and teams in all formats of the game (Test, ODI and T20).
+
+Have fun with cricpy!!!
+
+You may also like
+
+1. [My book 'Deep Learning from first principles:Second Edition' now on Amazon](https://gigadom.in/2018/12/14/my-book-deep-learning-from-first-principlessecond-edition-now-on-amazon/)
+2. [Practical Machine Learning with R and Python - Part 3](https://gigadom.in/2017/10/20/practical-machine-learning-with-r-and-python-part-3/)
+3. [Big Data-4: Webserver log analysis with RDDs, Pyspark, SparkR and SparklyR](https://gigadom.in/2019/05/11/big-data-4-webserver-log-analysis-with-rdds-pyspark-sparkr-and-sparklyr/)
+4. [Revisiting World Bank data analysis with WDI and gVisMotionChart](https://gigadom.in/2019/04/14/revisiting-world-bank-data-analysis-with-wdi-and-gvismotionchart/)
+5. [The Clash of the Titans in Test and ODI cricket](https://gigadom.in/2019/03/15/the-clash-of-the-titans-in-test-and-odi-cricket/)
+6. [Simulating the domino effect in Android using Box2D and AndEngine](https://gigadom.in/2013/01/09/simulating-the-domino-effect-in-android-using-box2d-and-andengine/)
+7. [Presentation on Wireless Technologies - Part 1](https://gigadom.in/2013/07/24/presentation-on-wireless-technologies-part-1/)
+8.[De-blurring revisited with Wiener filter using OpenCV](https://gigadom.in/2011/11/22/de-blurring-revisited-with-wiener-filter-using-opencv/)
+9. [Cloud Computing - Design Considerations](https://gigadom.in/2011/02/18/cloud-computing-design-considerations/)
+
+To see all posts click [Index of posts](https://gigadom.in/aa-2/)
