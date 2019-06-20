@@ -5,19 +5,92 @@ output:
   word_document: default
 ---
 
-*And she's got brains enough for two, which is the exact quantity the girl who marries you will need.*
+*I can't sit still and see another man slaving and working. I want to get up and superintend, and walk round with my hands in my pockets, and tell him what to do. It is my energetic nature. I can't help it.*
 
-*"I'm not absolutely certain of the facts, but I rather fancy it's Shakespeare who says that it's always just when a fellow is feeling particularly braced with things in general that Fate sneaks up behind him with the bit of lead piping."*
+*It always does seem to me that I am doing more work than I should do. It is not that I object to the work, mind you; I like work: it fascinates me. I can sit and look at it for hours. I love to keep it by me: the idea of getting rid of it nearly breaks my heart.*
 
-*"A melancholy-looking man, he had the appearance of one who has searched for the leak in life's gas-pipe with a lighted candle."*
-
-*"It isn't often that Aunt Dahlia lets her angry passions rise, but when she does, strong men climb trees and pull them up after them."*
-
-*"Some minds are like soup in a poor restaurant - better left unstirred."*
-
-                                          P.G. Wodehouse
+*Let your boat of life be light, packed with only what you need - a homely home and simple pleasures, one or two friends, worth the name, someone to love and someone to love you, a cat, a dog, and a pipe or two, enough to eat and enough to wear, and a little more than enough to drink; for thirst is a dangerous thing. *
 
 
+                    Three Men in a boat by Jerome K Jerome
+                    
+## Introduction
+ **Cricpy**, the python avatar of my R package was born about a 9 months back see [Introducing cricpy:A python package to analyze performances of cricketers](https://gigadom.in/2018/10/28/introducing-cricpya-python-package-to-analyze-performances-of-cricketrs/). Cricpy, like its R twin, can analyze performance of batsmen & bowlers in Test, ODI and T20 formats.  Now, in the latest release of cricpy, I have included 8 functions which can perform Team analytics. Team performance analysis can be done for Test, ODI and T20 matches.
+
+This package uses the statistics info available in ESPN Cricinfo Statsguru. The current version of this package can handle all formats of the game including Test, ODI and Twenty20 cricket.
+
+You should be able to install the package using *pip install cricpy*. Please be mindful of  [ESPN Cricinfo Terms of Use](http://www.espncricinfo.com/ci/content/site/company/terms_use.html)
+
+There are 5 functions which are used internally
+1) getTeamData b) getTeamNumber c) getMatchType d) getTeamDataHomeAway e) cleanTeamData
+
+and the external functions which
+a) teamWinLossStatusVsOpposition
+b) teamWinLossStatusAtGrounds
+c) plotTimelineofWinsLosses
+
+All the above functions are common to Test, ODI and T20 teams
+
+The data for a particular Team can be obtained with the getTeamDataHomeAway() function from the package. This will return a dataframe of the team's win/loss status at home and away venues over a period of time.
+This can be saved as a CSV file. Once this is done, you can use this CSV file for all subsequent analysis
+
+As before you can get the help for any of the cricpy functions as below
+```{python}
+import cricpy.analytics as ca
+#help(ca.teamWinLossStatusAtGrounds)
+```
+
+##1. Get team data 
+###1a. Test
+The teams in Test cricket are included below
+
+1. Afghanistan  2.Bangladesh 3.  England 4. World 5. India 6. Ireland 7. New Zealand  8. Pakistan 9. South Africa 10.Sri Lanka 11. West Indies 12.Zimbabwe  
+
+You can use this for the teamName paramater. This will return a dataframe and also save the file as a CSV , if save=True
+
+**Note**: - Since I have already got the data as CSV files I am not executing the lines below
+```{python}
+# Get the data for the teams. Save as CSV
+#indiaTest= getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="indiaTest.csv",save=True,teamName="India")
+#getTeamDataHomeAway(teamName="South Africa", matchType="Test", file="southafricaTest.csv", save=True)
+#getTeamDataHomeAway(teamName="West Indies", matchType="Test", file="westindiesTest.csv", save=True)
+#newzealandTest = getTeamDataHomeAway(matchType="Test",file="newzealandTest.csv",save=True,teamName="New Zealand")
+```
+
+###1b.  ODI
+The ODI teams in the world are below. The data for these teams can be got by names as shown below
+
+1. Afghanistan 2. Africa XI    3. Asia XI    4.Australia    5.Bangladesh    
+6. Bermuda 7. England    8. ICC World X1  9. India 11.Ireland  12. New Zealand
+13. Pakistan 14. South Africa  15.Sri Lanka 17. West Indies 18. Zimbabwe
+19. Canada 21. East Africa 22. Hong Kong 23.Ireland 24. Kenya  25. Namibia
+26. Nepal 27.Netherlands 28. Oman 29.Papua New Guinea 30.  Scotland
+31. United Arab Emirates 32. United States of America 
+```{python}
+#indiaODI=  getTeamDataHomeAway(dir=".",matchType="ODI",file="indiaODI.csv",save=True,teamName="India")
+#englandODI =  getTeamDataHomeAway(matchType="ODI",file="englandODI.csv",save=True,teamName="England")
+#westindiesODI = getTeamDataHomeAway(matchType="ODI",file="westindiesODI.csv",save=True,teamName="West Indies")
+#irelandODI <- getTeamDataHomeAway(matchType="ODI",file="irelandODI.csv",save=True,teamName="Ireland")
+```
+
+
+###1c T20
+The T20 teams in the world are 
+                 
+1. Afghanistan 2. Australia 3. Bahrain 4. Bangladesh 5. Belgium 6. Belize 
+7. Bermuda 8.Botswana 9.  Canada 11. Costa Rica 12. Germany 13. Ghana
+14. Guernsey 15. Hong Kong 16. ICC World X1 17.India 18. Ireland 19.Italy
+20. Jersey 21. Kenya   22.Kuwait    23.Maldives   24.Malta    25.Mexico   26.Namibia  
+27.Nepal   28.Netherlands 29. New Zealand   30.Nigeria  31.Oman  32. Pakistan  
+33.Panama   34.Papua New Guinea  35. Philippines  36.Qatar  37.Saudi Arabia  
+38.Scotland  39.South Africa  40.Spain   41.Sri Lanka  42.Uganda   43.United Arab Emirates   United States of America 44.Vanuatu  45.West Indies
+
+```python 
+#southafricaT20 = getTeamDataHomeAway(matchType="T20",file="southafricaT20.csv",save=True,teamName="South Africa")
+#srilankaT20 = getTeamDataHomeAway(matchType="T20",file="srilankaT20.csv",save=True,teamName="Sri Lanka")
+#canadaT20 = getTeamDataHomeAway(matchType="T20",file="canadaT20.csv",save=True,teamName="Canada")
+#afghanistanT20 = getTeamDataHomeAway(matchType="T20",file="afghanistanT20.csv",save=True,teamName="Afghanistan")
+```
 ##2  Analysis of Test matches
 The functions below perform analysis of Test teams
 
