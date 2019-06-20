@@ -50,6 +50,7 @@ You can use this for the teamName paramater. This will return a dataframe and al
 
 **Note**: - Since I have already got the data as CSV files I am not executing the lines below
 ```{python}
+import cricpy.analytics as ca
 # Get the data for the teams. Save as CSV
 #indiaTest= getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="indiaTest.csv",save=True,teamName="India")
 #getTeamDataHomeAway(teamName="South Africa", matchType="Test", file="southafricaTest.csv", save=True)
@@ -67,6 +68,7 @@ The ODI teams in the world are below. The data for these teams can be got by nam
 26. Nepal 27.Netherlands 28. Oman 29.Papua New Guinea 30.  Scotland
 31. United Arab Emirates 32. United States of America 
 ```{python}
+import cricpy.analytics as ca
 #indiaODI=  getTeamDataHomeAway(dir=".",matchType="ODI",file="indiaODI.csv",save=True,teamName="India")
 #englandODI =  getTeamDataHomeAway(matchType="ODI",file="englandODI.csv",save=True,teamName="England")
 #westindiesODI = getTeamDataHomeAway(matchType="ODI",file="westindiesODI.csv",save=True,teamName="West Indies")
@@ -85,12 +87,15 @@ The T20 teams in the world are
 33.Panama   34.Papua New Guinea  35. Philippines  36.Qatar  37.Saudi Arabia  
 38.Scotland  39.South Africa  40.Spain   41.Sri Lanka  42.Uganda   43.United Arab Emirates   United States of America 44.Vanuatu  45.West Indies
 
-```python 
+```{python}
+import cricpy.analytics as ca
 #southafricaT20 = getTeamDataHomeAway(matchType="T20",file="southafricaT20.csv",save=True,teamName="South Africa")
 #srilankaT20 = getTeamDataHomeAway(matchType="T20",file="srilankaT20.csv",save=True,teamName="Sri Lanka")
 #canadaT20 = getTeamDataHomeAway(matchType="T20",file="canadaT20.csv",save=True,teamName="Canada")
 #afghanistanT20 = getTeamDataHomeAway(matchType="T20",file="afghanistanT20.csv",save=True,teamName="Afghanistan")
 ```
+
+
 ##2  Analysis of Test matches
 The functions below perform analysis of Test teams
 
@@ -214,7 +219,7 @@ ca.teamWinLossStatusVsOpposition("afghanistanT20.csv",teamName="Afghanistan",opp
 
 
 ### 4b Wins vs losses of T20 teams against opposition at different venues
-```{python, t20-2,cache=TRUE}
+```{python, t20-1,cache=TRUE}
 import cricpy.analytics as ca
 # Compute the performance of Canada against all opposition at all venues and show by grounds
 df=ca.teamWinLossStatusAtGrounds("canadaT20.csv",teamName="Canada",opposition=["all"],homeOrAway=["all"],matchType="T20", plot=False)
