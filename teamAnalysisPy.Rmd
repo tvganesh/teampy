@@ -96,8 +96,7 @@ The functions below perform analysis of Test teams
 
 ##2a. Wins vs Loss against opposition
 This function performs analysis of Test teams against other teams at home/away or neutral venue.
-**Note**:- The opposition can be a vector of opposition teams. Similarly homeOrAway can also be a vector of
-home/away/neutral venues.
+**Note**:- The opposition can be a list of opposition teams. Similarly homeOrAway can also be a list of home/away/neutral venues.
 
 
 
@@ -179,6 +178,7 @@ ca.teamWinLossStatusAtGrounds("englandODI.csv",teamName="England",opposition=["W
 ca.teamWinLossStatusAtGrounds("indiaODI.csv",teamName="India",opposition=["South Africa"],homeOrAway=["home"],matchType="ODI",plot=True)
 ```
 
+###3c. Plot the time line of wins vs losses of ODI teams against opposition at different venues during an interval
 ```{python odi3, cache=TRUE}
 
 import cricpy.analytics as ca
@@ -189,8 +189,50 @@ ca.plotTimelineofWinsLosses("bangladeshOD.csv",teamName="Bangladesh",startDate="
 #Plot the time line of wins/losses of India ODI against Sri Lanka, Bangladesh from 2016 to 2019
 ca.plotTimelineofWinsLosses("indiaODI.csv",teamName="India",opposition=["Sri Lanka","Bangladesh"],startDate="2016-01-01",endDate="2019-01-01",matchType="ODI")
 
+```
 
+## 4 Twenty 20
+The functions below perform analysis of Twenty 20  teams listed above
 
+###4a. Wins vs Loss against opposition ODI teams
+This function performs analysis of T20 teams against other T20 teams at home/away or neutral venue.
+**Note**:- The opposition can be a list of opposition teams. Similarly homeOrAway can also be a list of home/away/neutral venues.
+
+```{python t20, cache=TRUE}
+import cricpy.analytics as ca
+# Get the performance of South Africa T20 team against England, India and Sri Lanka at home grounds at England
+df = ca.teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa",opposition=["England","India","Sri Lanka"], homeOrAway=["home"], matchType="T20", plot=False)
+print(df)
+
+#Plot the performance of South Africa T20 against England, India and Sri Lanka at all venues
+ca.teamWinLossStatusVsOpposition("southafricaT20.csv",teamName="South Africa", opposition=["England","India","Sri Lanka"],homeOrAway=["all"],matchType="T20",plot=True)
+
+#Plot the performance of Afghanistan T20 teams against all oppositions
+ca.teamWinLossStatusVsOpposition("afghanistanT20.csv",teamName="Afghanistan",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
 
 ```
 
+
+### 4b Wins vs losses of T20 teams against opposition at different venues
+```{python, t20-2,cache=TRUE}
+import cricpy.analytics as ca
+# Compute the performance of Canada against all opposition at all venues and show by grounds
+df=ca.teamWinLossStatusAtGrounds("canadaT20.csv",teamName="Canada",opposition=["all"],homeOrAway=["all"],matchType="T20", plot=False)
+print(df)
+
+ca.teamWinLossStatusAtGrounds("srilanka20.csv",teamName="Sri Lanka",opposition=["India, Bangladesh"], homeOrAway=c("all"), matchType="T20", plot=True)
+
+```
+
+###4c. Plot the time line of wins vs losses of T20 teams against opposition at different venues during an interval
+
+```{python, t20-2,cache=TRUE}
+import cricpy.analytics as ca
+#Plot the time line of Sri Lanka T20 team agaibst all opposition
+ca.plotTimelineofWinsLosses("srilankaT20.csv",team="Sri Lanka",opposition=["Australia", "Pakistan"], startDate="2013-01-01", endDate="2019-01-01",  matchType="T20")
+
+# Plot the time line of Bangladesh T20 between 2015 and 2017
+ca.plotTimelineofWinsLosses("bangladesh.csv",team="Bangladesh",startDate="2015-01-01",endDate="2017-01-01")
+
+ca.plotTimelineofWinsLosses("bangladesh.csv",team="Bangladesh",opposition=["Sri Lanka","India"))
+```
