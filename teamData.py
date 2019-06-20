@@ -900,11 +900,11 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
     
     
     elif ((matchType == "ODI") or (matchType == "T20")):
-        plt.plot(df8['date'], df8['Result'])
-        plt.axhline(y=1, color='r')
-        plt.axhline(y=0.5, color='b')
-        plt.axhline(y=-0.5, color='y')
-        plt.axhline(y=-1, color='y')
+        plt.plot(df8['date'], df8['result'])
+        plt.axhline(y=1, color='r',linestyle="--")
+        plt.axhline(y=0.5, color='b',linestyle="--")
+        plt.axhline(y=-0.5, color='y',linestyle="--")
+        plt.axhline(y=-1, color='y',linestyle="--")
         plt.xlabel('Date')
         plt.ylabel('Win/Loss status')
         plt.suptitle(atitle)
@@ -929,4 +929,5 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
 #srilankaODI =getTeamDataHomeAway(dir=".",teamView="bat",matchType="ODI",file="srilankaODI.csv",save=True,teamName="Sri Lanka")
 #australiaT20 =getTeamDataHomeAway(dir=".",teamView="bat",matchType="T20",file="australiaT20.csv",save=True,teamName="Australia")
 #getTeamDataHomeAway(teamName="South Africa",matchType="Test",file="southafricaTest.csv",save=True)
-getTeamDataHomeAway(teamName="West Indies",matchType="Test",file="westindiesTest.csv",save=True)
+#getTeamDataHomeAway(teamName="West Indies",matchType="Test",file="westindiesTest.csv",save=True)
+plotTimelineofWinsLosses("indiaODI.csv",teamName="India",opposition=["Sri Lanka","Bangladesh"],startDate="2016-01-01",endDate="2019-01-01",matchType="ODI")

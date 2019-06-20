@@ -111,6 +111,9 @@ ca.teamWinLossStatusAtGrounds("indiaODI.csv",teamName="India",opposition=["South
 import cricpy.analytics as ca
 #Plot the time line of wins/losses of Bangladesh ODI team between 2015 and 2019 against all other teams and at
 # all venues
+ca.plotTimelineofWinsLosses("bangladeshOD.csv",teamName="Bangladesh",startDate="2015-01-01",endDate="2019-01-01",matchType="ODI")
+
+#Plot the time line of wins/losses of India ODI against Sri Lanka, Bangladesh from 2016 to 2019
 ca.plotTimelineofWinsLosses("indiaODI.csv",teamName="India",opposition=["Sri Lanka","Bangladesh"],startDate="2016-01-01",endDate="2019-01-01",matchType="ODI")
 
 
